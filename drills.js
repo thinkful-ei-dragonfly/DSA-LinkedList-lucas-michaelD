@@ -81,8 +81,19 @@ class LinkedList {
 }
 
 function main() {
-  let SLL = new LinkedList();
-  SLL.insertFirst('Apollo');
+  const SLL = new LinkedList();
+
+  const itemsForList = ['Starbuck', 'Husker', 'Helo', 'Boomer', 'Apollo'];
+
+  itemsForList.forEach(nodeItem => {
+    SLL.insertFirst(nodeItem)
+  });
+  SLL.insertLast('Tauhida')
+
+  SLL.remove('squirrel'); // This returns null
+  
+  console.log(SLL);
+/*   SLL.insertFirst('Apollo');
   console.log(SLL);
   SLL.insertLast('Boomer');
   SLL.insertLast('Helo');
@@ -91,10 +102,8 @@ function main() {
   console.log(SLL);
   console.log(SLL.insertLast('Tauhida'));
   
-  SLL.remove('squirrel'); // This returns null
-   
 
+    */
 }
-
 main();
 
