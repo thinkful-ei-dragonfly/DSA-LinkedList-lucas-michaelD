@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 class _Node {
   constructor(value, next) {
     this.value = value;
@@ -82,33 +83,65 @@ class LinkedList {
   insertBefore(item, target) {
     // if list is empty
     if (!this.head) {
-      console.log('This link list is empty, therefore nothing to insert before');
+      console.log(
+        'This link list is empty, therefore nothing to insert before'
+      );
       // this.head = item -> we "could" just make a new linklist with the item as the head
       // but this might not be what the user expects?
-      return null
+      return null;
     }
     // if the target is the head
     // make the new item the new head
     if (this.head.value === target) {
-      item.next = this.head
-      this.head = item
+      item.next = this.head;
+      this.head = item;
     }
 
-    let targetNode = this.head
-    let previousNode = this.head
+    let targetNode = this.head;
+    let previousNode = this.head;
 
     while (targetNode !== null && targetNode.value != target) {
       // if this was sorted, we could do something like targetNode.value < target
-      previousNode = targetNode
-      targetNode = targetNode.next
+      previousNode = targetNode;
+      targetNode = targetNode.next;
     }
     if (targetNode === null) {
       console.log(`${target} not found. Could not place ${item} before it`);
       return;
     }
-    let newItem = new _Node(item, targetNode)
-    previousNode.next = newItem
-    console.log(`Previous is ${previousNode.value}\n Newly inserted item is ${item}\n and tareget is ${targetNode.value}`);
+    let newItem = new _Node(item, targetNode);
+    previousNode.next = newItem;
+    console.log(
+      `Previous is ${
+        previousNode.value
+      }\n Newly inserted item is ${item}\n and tareget is ${targetNode.value}`
+    );
+  }
+
+  insertAfter(item, target) {
+    // is list empty
+    if (!this.head) {
+      console.log(
+        'This link list is empty, therefore nothing to insert before'
+      );
+      // this.head = item -> we "could" just make a new linklist with the item as the head
+      // but this might not be what the user expects?
+      return null;
+    }
+    if (this.head.value === target && this.head.next === null) {
+      this.head.next = new _Node(item, null);
+    }
+    let targetNode = this.head;
+    while (targetNode !== null && targetNode.value !== target) {
+      targetNode = targetNode.next;
+    }
+    if (targetNode === null) {
+      console.log('Cannot find the target');
+      return null;
+    }
+
+    let newItem = new _Node(item, targetNode.next);
+    targetNode.next = newItem;
   }
 }
 
@@ -126,19 +159,18 @@ function main() {
   //
 
   SLL.insertFirst('Apollo');
-
   SLL.insertLast('Boomer');
   SLL.insertLast('Helo');
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
-  // console.log(SLL);
-  // console.log(SLL.insertLast('Tauhida'));
-  SLL.insertLast('Tauhida')
-  SLL.remove('squirrel') // this logs a 'Item not found' and returns null
+  SLL.insertLast('Tauhida');
+  //SLL.remove('squirrel') // this logs a 'Item not found' and returns null
 
-  SLL.insertBefore('Athena', 'Boomer')
-
-
-
+  SLL.insertBefore('Athena', 'Boomer');
+  SLL.insertAfter('Hotdog', 'Helo');
+  console.log(SLL.find('Apollo'));
+  console.log(SLL.find('Boomer'));
+  console.log(SLL.find('Hotdog'));
+  console.log(SLL.find('Helo'));
 }
 main();
