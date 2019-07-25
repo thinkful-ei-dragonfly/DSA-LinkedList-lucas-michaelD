@@ -162,18 +162,73 @@ class LinkedList {
   }
 }
 
+// Exercise 3
+function display(list) {
+  let displayList = []
+
+  function findNext(item) {
+    if (item.next) {
+      displayList.push(item.next.value)
+      findNext(item.next)
+    }
+    return null
+  }
+  findNext(list.head)
+  return displayList
+}
+function size(list) {
+  let counter = 0
+
+  function findNext(item) {
+    if (item.next) {
+      counter +=1
+      findNext(item.next)
+    }
+    return null
+  }
+  findNext(list.head)
+  return counter
+}
+function isEmpty(list) {
+  return !list.head
+  // if "!list.head" is a true statement, it returns true.
+  // otherwise, it has a head and it's false. it's not empty
+}
+function findPrevious(list, target) {
+  let prevItem = ''
+
+  function findNext(item) {
+    if (item.next) {
+      if (item.next.value === target) {
+        prevItem = item.value
+        return
+      }
+      findNext(item.next)
+    }
+    return null
+  }
+  findNext(list.head)
+  return prevItem
+}
+function findLast(list) {
+  let lastItem = ''
+
+  function findNext(item) {
+    if (item.next) {
+      findNext(item.next)
+    } else {
+      lastItem = item.value
+      return
+    }
+
+  }
+  findNext(list.head)
+  return lastItem
+}
+// Exercise 3
+
 function main() {
   const SLL = new LinkedList();
-
-  // const itemsForList = ['Starbuck', 'Husker', 'Helo', 'Boomer', 'Apollo'];
-  //
-  // itemsForList.forEach(nodeItem => {
-  //   SLL.insertFirst(nodeItem)
-  // });
-  // SLL.insertLast('Tauhida')
-  //
-  // SLL.remove('squirrel'); // This returns null
-  //
 
   SLL.insertFirst('Apollo');
   SLL.insertLast('Boomer');
@@ -181,19 +236,33 @@ function main() {
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
   SLL.insertLast('Tauhida');
-  // SLL.remove('squirrel') // this logs a 'Item not found' and returns null
-
+  console.log('---------------------------------------------');
+  console.log('Attempting to remove an item not in the link list: ');
+  SLL.remove('squirrel') // this logs a 'Item not found' and returns null
   SLL.insertBefore('Athena', 'Boomer');
   SLL.insertAfter('Hotdog', 'Helo');
   SLL.insertAt('Kat', 3)
-  // console.log(SLL.find('Boomer'));
-  // console.log(SLL.find('Kat'));
-  console.log('Before removing Tauhida');
-  console.log(SLL.find('Starbuck'));
-  console.log('---------------------------------------------');
   SLL.remove('Tauhida')
-  console.log('AFTER removing tauhida');
-  console.log(SLL.find('Starbuck'));
+
+
+  console.log('---------------------------------------------');
+  console.log('Display the list');
+  console.log(`${display(SLL)}`);
+  console.log('---------------------------------------------');
+  console.log('Count the size of the list');
+  console.log(`The size of SLL is ${size(SLL)} nodes long`)
+  console.log('---------------------------------------------');
+  console.log(`Is SLL empty? The answer is: ${isEmpty(SLL)}`);
+  console.log('---------------------------------------------');
+  console.log(`The _Node before 'Apollo' is ${findPrevious(SLL, 'Apollo')}`)
+  console.log(`The _Node before 'Helo' is ${findPrevious(SLL, 'Helo')}`)
+  console.log(`The _Node before 'Starbuck' is ${findPrevious(SLL, 'Starbuck')}`)
+  console.log('---------------------------------------------');
+  console.log(`The last item in SLL is ${findLast(SLL)}`);
+  console.log('---------------------------------------------');
 
 }
 main();
+
+
+// display()
