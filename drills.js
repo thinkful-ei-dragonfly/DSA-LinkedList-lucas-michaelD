@@ -78,32 +78,67 @@ class LinkedList {
     }
     previousNode.next = currNode.next;
   }
+
+  insertBefore(item, target) {
+    // if list is empty
+    if (!this.head) {
+      console.log('This link list is empty, therefore nothing to insert before');
+      // this.head = item -> we "could" just make a new linklist with the item as the head
+      // but this might not be what the user expects?
+      return null
+    }
+    // if the target is the head
+    // make the new item the new head
+    if (this.head.value === target) {
+      item.next = this.head
+      this.head = item
+    }
+
+    let targetNode = this.head
+    let previousNode = this.head
+
+    while (targetNode !== null && targetNode.value != target) {
+      // if this was sorted, we could do something like targetNode.value < target
+      previousNode = targetNode
+      targetNode = targetNode.next
+    }
+    if (targetNode === null) {
+      console.log(`${target} not found. Could not place ${item} before it`);
+      return;
+    }
+    let newItem = new _Node(item, targetNode)
+    previousNode.next = newItem
+    console.log(`Previous is ${previousNode.value}\n Newly inserted item is ${item}\n and tareget is ${targetNode.value}`);
+  }
 }
 
 function main() {
   const SLL = new LinkedList();
 
-  const itemsForList = ['Starbuck', 'Husker', 'Helo', 'Boomer', 'Apollo'];
+  // const itemsForList = ['Starbuck', 'Husker', 'Helo', 'Boomer', 'Apollo'];
+  //
+  // itemsForList.forEach(nodeItem => {
+  //   SLL.insertFirst(nodeItem)
+  // });
+  // SLL.insertLast('Tauhida')
+  //
+  // SLL.remove('squirrel'); // This returns null
+  //
 
-  itemsForList.forEach(nodeItem => {
-    SLL.insertFirst(nodeItem)
-  });
-  SLL.insertLast('Tauhida')
+  SLL.insertFirst('Apollo');
 
-  SLL.remove('squirrel'); // This returns null
-  
-  console.log(SLL);
-/*   SLL.insertFirst('Apollo');
-  console.log(SLL);
   SLL.insertLast('Boomer');
   SLL.insertLast('Helo');
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
-  console.log(SLL);
-  console.log(SLL.insertLast('Tauhida'));
-  
+  // console.log(SLL);
+  // console.log(SLL.insertLast('Tauhida'));
+  SLL.insertLast('Tauhida')
+  SLL.remove('squirrel') // this logs a 'Item not found' and returns null
 
-    */
+  SLL.insertBefore('Athena', 'Boomer')
+
+
+
 }
 main();
-
